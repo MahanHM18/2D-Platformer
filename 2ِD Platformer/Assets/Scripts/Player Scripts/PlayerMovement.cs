@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 SpawnPos;
     private void Awake()
     {
-        //Init
+
 
         _rb = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
@@ -41,11 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Movement
         Movement();
-        // Debug.Log(IsGrounded);
 
-        //SetDoubleJumpToFalseWhenIsOnGround
         if (IsGrounded)
             _doubleJump = false;
 
@@ -59,13 +56,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        //SetXInput
         float x = Input.GetAxisRaw("Horizontal");
 
-        //ApplyVelocityMovement
         _rb.velocity = new Vector2((x * Time.deltaTime * MoveSpeed) * 100, _rb.velocity.y);
 
-        //Jumping
         PlayerJump();
 
     }
@@ -74,12 +68,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            //WhenIsOnGround
+
             if (IsGrounded)
             {
                 Jump();
             }
-            //DoubleJump
             if (!IsGrounded && !_doubleJump)
             {
                 Jump();
@@ -126,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Coin"))
         {
             GameManager.Coin++;
-            UIManager.Instance.SetCoin(GameManager.Coin);
+            UIManager.Instance.Increase(1);
             Destroy(collision.gameObject);
         }
 
@@ -134,6 +127,13 @@ public class PlayerMovement : MonoBehaviour
         {
             SpawnPos = collision.transform.position;
             Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Shop"))
+        {
+            Debug.Log("Shop");
+            UIManager.Instance.ActiveShopPanel();
+            
         }
     }
 
