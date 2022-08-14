@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
         cb.normalColor = Color.green;
 
         GraphicsButtons[1].colors = cb;
+        
     }
 
 

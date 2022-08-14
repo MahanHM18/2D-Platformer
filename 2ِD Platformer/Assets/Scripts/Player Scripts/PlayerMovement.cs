@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        //ApplyJumpForce
         _rb.velocity = new Vector2(_rb.velocity.x, JumpForce);
     }
 
@@ -139,6 +138,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        Respawn();
+    }
+
+    private void Respawn()
+    {
         transform.position = SpawnPos;
     }
+    
+
+
 }
